@@ -17,7 +17,7 @@ import subprocess
 import sys
 import warnings
 from distutils import ccompiler, sysconfig
-from distutils.command.build_ext import build_ext
+from setuptools.command.build_ext import build_ext
 
 from setuptools import Extension, setup
 
@@ -678,6 +678,8 @@ class pil_build_ext(build_ext):
 
         self.extensions[:] = exts
 
+        self.swig_opts = ' '.join(self.swig_opts)
+        build_ext.finalize_options(self)
         build_ext.build_extensions(self)
 
         #
